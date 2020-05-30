@@ -1,0 +1,105 @@
+<html>
+<meta http-equiv="refresh" content="300">
+<script>
+
+
+    function toggleFullScreen(elem) {
+        // ## The below if statement seems to work better ## if ((document.fullScreenElement && document.fullScreenElement !== null) || (document.msfullscreenElement && document.msfullscreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+        if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+            if (elem.requestFullScreen) {
+                elem.requestFullScreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullScreen) {
+                elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    }
+
+    window.onload = function () {
+        const el = document.getElementById('wrapper');
+        console.log(el)
+        el.addEventListener('click', () => toggleFullScreen(document.body), false);
+    }
+
+
+
+
+</script>
+<style>
+    *:fullscreen,
+    *:-webkit-full-screen,
+    *:-moz-full-screen {
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    html {
+        background-color: #ffffff;
+    }
+
+    body {
+        background-color: #ffffff;
+
+        margin: 0px;
+        border: 0px;
+    }
+
+    .grid {
+        width: 100%;
+        height: 100%;
+    }
+
+    .item {
+        margin: 3vh 2vw;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+
+    }
+
+    .item:nth-child(1) {
+        float: left;
+        width: 52vw;
+        height: calc(100vh - 6vh);
+        ;
+    }
+
+    .item:nth-child(2),
+    .item:nth-child(3) {
+        float: left;
+        width: 42vw;
+        margin-left: 0;
+        height: calc(50vh - 4.5vh);
+        ;
+    }
+
+    .item:nth-child(3) {
+        margin-top: 0;
+    }
+</style>
+
+<body>
+
+    <div id="wrapper" class="grid">
+        <div class="item" style="background-image: url(<%=images[0]%>)"></div>
+        <div class="item" style="background-image: url(<%=images[1]%>)"></div>
+        <div class="item" style="background-image: url(<%=images[2]%>)"></div>
+    </div>
+
+</body>
+
+
+</html>
