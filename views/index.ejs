@@ -1,5 +1,4 @@
 <html>
-<meta http-equiv="refresh" content="300">
 <script>
 
 
@@ -29,13 +28,17 @@
     }
 
     window.onload = function () {
+        setInterval(()=>{
+            fetch('/images').then(response=>response.json()).then(({images})=>{
+                document.getElementById("img1").style.backgroundImage = "url('"+images[0]+"')";
+                document.getElementById("img2").style.backgroundImage = "url('"+images[1]+"')";
+                document.getElementById("img3").style.backgroundImage = "url('"+images[2]+"')";
+            })
+        },1000*60*30);
         const el = document.getElementById('wrapper');
         console.log(el)
         el.addEventListener('click', () => toggleFullScreen(document.body), false);
     }
-
-
-
 
 </script>
 <style>
@@ -94,9 +97,9 @@
 <body>
 
     <div id="wrapper" class="grid">
-        <div class="item" style="background-image: url(<%=images[0]%>)"></div>
-        <div class="item" style="background-image: url(<%=images[1]%>)"></div>
-        <div class="item" style="background-image: url(<%=images[2]%>)"></div>
+        <div id="img1" class="item" style="background-image: url(<%=images[0]%>)"></div>
+        <div id="img2" class="item" style="background-image: url(<%=images[1]%>)"></div>
+        <div id="img3" class="item" style="background-image: url(<%=images[2]%>)"></div>
     </div>
 
 </body>

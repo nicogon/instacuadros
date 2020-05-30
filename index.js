@@ -17,6 +17,12 @@ app.get('/', (req, res) => {
   res.render('index', { images: [randomFiles[0], randomFiles[1], randomFiles[2]] });
 });
 
+app.get('/images', (req, res) => {
+  const files = fs.readdirSync(imageDir);
+  const randomFiles = shuffleArray(files);
+  res.send({ images: [randomFiles[0], randomFiles[1], randomFiles[2]] });
+});
+
 app.listen(3000, () => {
   console.log('Running');
 });
